@@ -184,30 +184,6 @@ class Account extends Company {
 		return $this->get_linked_beans('contacts','Contact');
 	}
 
-
-
-	function clear_account_case_relationship($account_id='', $case_id='')
-	{
-		if (empty($case_id)) $where = '';
-		else $where = " and id = '$case_id'";
-		$query = "UPDATE cases SET account_name = '', account_id = '' WHERE account_id = '$account_id' AND deleted = 0 " . $where;
-		$this->db->query($query,true,"Error clearing account to case relationship: ");
-	}
-
-	/**
-	* This method is used to provide backward compatibility with old data that was prefixed with http://
-	* We now automatically prefix http://
-	* @deprecated.
- 	*/
-	function remove_redundant_http()
-	{	/*
-		if(preg_match("@http://@", $this->website))
-		{
-			$this->website = substr($this->website, 7);
-		}
-		*/
-	}
-
 	function fill_in_additional_list_fields()
 	{
 		parent::fill_in_additional_list_fields();
@@ -249,25 +225,6 @@ class Account extends Company {
 		}
 	}
 
-	function get_list_view_data(){
-
-		$temp_array = parent::get_list_view_data();
-
-		$temp_array["ENCODED_NAME"] = $this->name;
-
-		if(!empty($this->billing_address_state))
-		{
-			$temp_array["CITY"] = $this->billing_address_city . ', '. $this->billing_address_state;
-		}
-		else
-		{
-			$temp_array["CITY"] = $this->billing_address_city;
-		}
-		$temp_array["BILLING_ADDRESS_STREET"]  = $this->billing_address_street;
-		$temp_array["SHIPPING_ADDRESS_STREET"] = $this->shipping_address_street;
-
-		return $temp_array;
-	}
 	/**
 		builds a generic search based on the query string using or
 		do not include any $this-> because this is called on without having the class instantiated
@@ -365,5 +322,4 @@ class Account extends Company {
 			";
 		return $query;
 	}
-
 }
