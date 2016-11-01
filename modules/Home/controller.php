@@ -141,4 +141,10 @@ class HomeController extends SugarController{
 
     }
 
+    public function action_test()
+    {
+        $db = SuiteContainer::getContainer()->get(DBManager::class);
+        $container = SuiteContainer::getContainer()->get(LewisTestClass::class);
+    }
+
 }

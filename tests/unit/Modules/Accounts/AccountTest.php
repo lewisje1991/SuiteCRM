@@ -37,27 +37,6 @@ class AccountTest extends Unit
         $this->assertTrue(is_array($contacts));
     }
 
-    public function testclear_account_case_relationship()
-    {
-        //This method cannot be tested because Query has a wrong column name which makes the function to die.
-
-        /*$this->account = new Account();
-        $this->account->clear_account_case_relationship('','');*/
-
-        $this->markTestIncomplete('Can Not be implemented - Query has a wrong column name which makes the function to die');
-    }
-
-    public function testremove_redundant_http()
-    {
-        //this method has no implementation. so test for exceptions only.
-        try {
-            $this->account->remove_redundant_http();
-            $this->assertTrue(true);
-        } catch (\Exception $e) {
-            $this->fail();
-        }
-    }
-
     public function testfill_in_additional_list_fields()
     {
         //execute the method and test if it works and does not throws an exception.
