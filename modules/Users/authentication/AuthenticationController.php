@@ -169,7 +169,7 @@ class AuthenticationController
 
             $GLOBALS['log']->info(
                 sprintf(
-                    'SUCCESSFUL LOGIN Username: %s IP: %s',
+                    'SUCCESSFUL LOGIN: Username: %s IP: %s',
                     $username,
                     $_SERVER['REMOTE_ADDR'])
             );
@@ -187,7 +187,7 @@ class AuthenticationController
 			$GLOBALS['logic_hook']->call_custom_logic('Users', 'login_failed');
 			$GLOBALS['log']->fatal(
                 sprintf(
-                    'FAILED LOGIN:attempts[%s] - Username: %s IP: %s',
+                    'FAILED LOGIN: attempts[%s] Username: %s IP: %s',
                     $_SESSION['loginAttempts'],
                     $username,
                     $_SERVER['REMOTE_ADDR']
