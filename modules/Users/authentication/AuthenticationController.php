@@ -66,7 +66,7 @@ class AuthenticationController
 
     /**
      * Get auth controller object
-     * @param string $type 
+     * @param string $type
      * @return SugarAuthenticate
      */
     protected function getAuthController($type)
@@ -90,7 +90,7 @@ class AuthenticationController
             $type = 'SugarAuthenticate';
         }
 
-        if (!empty($_REQUEST['no_saml']) 
+        if (!empty($_REQUEST['no_saml'])
             && (is_subclass_of($type, 'SAMLAuthenticate') || 'SAMLAuthenticate' == $type)) {
             $type = 'SugarAuthenticate';
         }
@@ -101,8 +101,8 @@ class AuthenticationController
 	/**
 	 * Returns an instance of the authentication controller
 	 *
-	 * @param string $type this is the type of authetnication you want to use default is SugarAuthenticate
-	 * @return an instance of the authetnciation controller
+	 * @param string $type this is the type of authentication you want to use default is SugarAuthenticate
+	 * @return AuthenticationController an instance of the authentication controller
 	 */
 	public static function getInstance($type = null)
 	{
@@ -166,6 +166,14 @@ class AuthenticationController
 			if (is_array($PARAMS) && !empty($PARAMS) && isset($PARAMS['passwordEncrypted'])) {
 				$checkTimeZone = false;
 			} // if
+
+            $GLOBALS['log']->info(
+                sprintf(
+                    'SUCCESSFUL LOGIN Username: %s IP: %s',
+                    $username,
+                    $_SERVER['REMOTE_ADDR'])
+            );
+
 			if(empty($ut) && $checkTimeZone && $_REQUEST['action'] != 'SetTimezone' && $_REQUEST['action'] != 'SaveTimezone' ) {
 				$GLOBALS['module'] = 'Users';
 				$GLOBALS['action'] = 'Wizard';
@@ -177,7 +185,14 @@ class AuthenticationController
 			//kbrill bug #13225
 			LogicHook::initialize();
 			$GLOBALS['logic_hook']->call_custom_logic('Users', 'login_failed');
-			$GLOBALS['log']->fatal('FAILED LOGIN:attempts[' .$_SESSION['loginAttempts'] .'] - '. $username);
+			$GLOBALS['log']->info(
+                sprintf(
+                    'FAILED LOGIN:attempts[%s] - Username: %s IP: %s',
+                    $_SESSION['loginAttempts'],
+                    $username,
+                    $_SERVER['REMOTE_ADDR']
+                )
+            );
 		}
 		// if password has expired, set a session variable
 
