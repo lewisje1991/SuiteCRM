@@ -185,7 +185,7 @@ class AuthenticationController
 			//kbrill bug #13225
 			LogicHook::initialize();
 			$GLOBALS['logic_hook']->call_custom_logic('Users', 'login_failed');
-			$GLOBALS['log']->info(
+			$GLOBALS['log']->fatal(
                 sprintf(
                     'FAILED LOGIN:attempts[%s] - Username: %s IP: %s',
                     $_SESSION['loginAttempts'],
